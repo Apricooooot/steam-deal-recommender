@@ -95,7 +95,7 @@ export function DealExplorer() {
         <div className="proof-row">
           <div><strong>{payload?.deals.length ?? "—"}</strong><span>个合格 Deal</span></div>
           <div><strong>¥</strong><span>中国区实付价</span></div>
-          <div><strong>730</strong><span>天价格窗口</span></div>
+          <div><strong>两年内</strong><span>最低价格</span></div>
         </div>
       </section>
 
@@ -158,8 +158,14 @@ export function DealExplorer() {
                   <span>参考低价 {money.format(deal.referenceLow)}</span>
                   <span>{deal.observations} 条价格记录</span>
                 </div>
-                <a href={`https://store.steampowered.com/app/${deal.appId}/?cc=cn`} target="_blank" rel="noreferrer">
-                  前往 Steam <span>↗</span>
+                <a
+                  className="steam-button"
+                  href={`https://store.steampowered.com/app/${deal.appId}/?cc=cn`}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`前往 Steam 商店查看 ${deal.title}`}
+                >
+                  前往 Steam 商店 <span>↗</span>
                 </a>
               </div>
             </article>
