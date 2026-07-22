@@ -14,8 +14,8 @@ test("renders the CN deal product page", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /<title>Steam å²ä½Žï½œä¸­å›½åŒºå½“å‰æœ‰æ•ˆ Deal<\/title>/);
-  assert.match(html, /åªçœ‹çœŸæ­£çš„å²ä½Ž/);
-  assert.match(html, /ä¸­å›½åŒº/);
+  assert.match(html, /<title>Steam 史低｜中国区当前有效 Deal<\/title>/);
+  assert.match(html, /只看真正的史低/);
+  assert.match(html, /中国区/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/);
 });
