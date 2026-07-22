@@ -28,7 +28,7 @@ Choose a Steam store region and optionally provide a public Steam profile URL or
 - Show current/original price, discount, expiry, reviews, and recommendation reason
 - Cache provider responses and degrade gracefully
 
-See [the PRD](docs/PRD.md) and [architecture proposal](docs/ARCHITECTURE.md).
+See [the PRD](docs/PRD.md), [architecture proposal](docs/ARCHITECTURE.md), and [Phase 0 feasibility report](docs/PHASE_0_FEASIBILITY.md).
 
 ## Proposed stack
 
@@ -40,9 +40,19 @@ See [the PRD](docs/PRD.md) and [architecture proposal](docs/ARCHITECTURE.md).
 
 ## Status
 
-Planning and data-feasibility validation. First milestone:
+Phase 0 data feasibility passed with live Steam and IsThereAnyDeal data on 2026-07-21.
 
-`Steam profile -> owned games -> metadata -> active regional deal -> price history`
+Validated chain:
+
+`Steam profile -> owned games -> active regional deal -> Steam App ID -> release-aware price history -> low status -> expiry`
+
+Run the sanitized reproduction script with:
+
+```powershell
+./scripts/validate-data-chain.ps1 -VanityName yourSteamVanityName -Country CN
+```
+
+The script prompts securely for API keys; never commit them.
 
 ## License
 
