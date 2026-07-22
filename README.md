@@ -30,6 +30,19 @@ Choose a Steam store region and optionally provide a public Steam profile URL or
 
 See [the PRD](docs/PRD.md), [architecture proposal](docs/ARCHITECTURE.md), and [Phase 0 feasibility report](docs/PHASE_0_FEASIBILITY.md).
 
+## Run Phase 1 locally
+
+Requirements: Node.js 22.13 or newer.
+
+```powershell
+npm install
+Copy-Item .env.example .env.local
+# Add ITAD_API_KEY to .env.local
+npm run dev
+```
+
+Without `ITAD_API_KEY`, the page remains runnable using clearly marked demonstration data. Secrets are read only by the server route and must never be committed.
+
 ## Proposed stack
 
 - React + TypeScript
@@ -41,6 +54,8 @@ See [the PRD](docs/PRD.md), [architecture proposal](docs/ARCHITECTURE.md), and [
 ## Status
 
 Phase 0 data feasibility passed with live Steam and IsThereAnyDeal data on 2026-07-21.
+
+Phase 1 implementation is now in progress. The repository contains a runnable CN/CNY deal page with conservative low-price classification, filtering, sorting, expiry/freshness fields, live ITAD integration, and clearly labeled demo fallback data.
 
 Validated chain:
 
