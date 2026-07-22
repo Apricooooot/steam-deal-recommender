@@ -205,9 +205,11 @@ Each recommendation card includes:
 
 ## 15. Delivery phases
 
-### Phase 0: data feasibility
+### Phase 0: data feasibility — completed
 
-Validate the full data chain: profile resolution, public library, App ID mapping, metadata, active regional price, price history, and deal expiry.
+Validated with live CN-region data on 2026-07-21: profile resolution, public library, ITAD-to-Steam product mapping, package-to-App-ID resolution, base-game metadata, owned-game exclusion, active regional price, release-aware history, and deal expiry. See [the feasibility report](PHASE_0_FEASIBILITY.md).
+
+The pass is conditional: unsupported product mappings, incomplete history, and unknown expiry remain explicit data states.
 
 ### Phase 1: regional MVP
 
@@ -219,7 +221,7 @@ Add Steam profile input, taste modeling, owned-game exclusion, explainable scori
 
 ## 16. Open questions
 
-- Which provider supplies sufficiently reliable regional Steam price history and expiry times?
+- ITAD is the selected MVP provider for regional deal/history data; coverage and expiry completeness must be measured and surfaced.
 - Which countries/currencies launch first?
 - What minimum review score and review-count thresholds should be used?
 - How often can data be refreshed within provider rate limits?
