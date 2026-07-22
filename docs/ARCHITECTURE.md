@@ -1,6 +1,6 @@
 # Architecture Proposal
 
-This document is a starting point, not a locked implementation decision. Phase 0 should validate data availability before the full application is scaffolded.
+This document is a starting point, not a locked implementation decision. Phase 0 passed on 2026-07-21; see [the feasibility report](PHASE_0_FEASIBILITY.md) for validated endpoints, mapping rules, and remaining risks.
 
 ## System overview
 
@@ -219,9 +219,9 @@ Example recommendation request:
 5. Stale-data and fallback behavior.
 6. End-to-end regional and personalized API flows.
 
-## Phase 0 exit criteria
+## Phase 0 exit criteria — met
 
-Before generating the full production skeleton, demonstrate with real data that the system can:
+The following were demonstrated with live data:
 
 - resolve a Steam profile;
 - retrieve a public owned-game library;
@@ -230,3 +230,15 @@ Before generating the full production skeleton, demonstrate with real data that 
 - obtain or build adequate price history;
 - determine expiry or represent it as unknown;
 - calculate the low status for a small verified sample.
+
+
+## Validated provider mapping
+
+- Steam Web API resolves profiles and retrieves public libraries.
+- ITAD shop ID 61 supplies current Steam deals and regional price history.
+- ITAD product lookup can yield app, sub, or bundle identifiers.
+- Direct app mappings are validated with Steam metadata.
+- Sub mappings require package resolution; accept only exactly one validated base game.
+- Bundle-only, DLC, soundtrack, demo, software, and ambiguous package mappings are excluded from MVP.
+- Steam Store app/package endpoints are undocumented and must remain isolated behind cached, replaceable adapters.
+- ITAD history requests use an explicit seconds-only UTC since value for the release-aware 730-day window.
