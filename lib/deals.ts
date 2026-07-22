@@ -1,3 +1,4 @@
+
 type ItadDeal = {
   id: string;
   title: string;
@@ -76,6 +77,7 @@ async function resolveAppId(products: string[]) {
 }
 
 async function enrich(deal: ItadDeal, products: string[], key: string): Promise<PublicDeal | null> {
+  if (deal.deal.expiry && Date.parse(deal.deal.expiry) <= Date.now()) return null;
   const appId = await resolveAppId(products);
   if (!appId) return null;
 
@@ -90,10 +92,15 @@ async function enrich(deal: ItadDeal, products: string[], key: string): Promise<
   const twoYearsAgo = Date.now() - 730 * 86_400_000;
   const windowStart = Math.max(release, twoYearsAgo);
   const since = new Date(windowStart).toISOString().replace(/\.\d{3}Z$/, "Z");
-  const history = await json<Array<{ timestamp: string; shop: { id: number }; deal: { price: { amount: number; amountInt: number; currency: string } } }>>(
-    `${ITAD}/games/history/v2?id=${encodeURIComponent(deal.id)}&country=CN&shops=${STEAM_SHOP_ID}&since=${encodeURIComponent(since)}`,
-    { headers: { "ITAD-API-Key": key } },
-  );
+  const [history, reviewResponse] = await Promise.all([
+    json<Array<{ timestamp: string; shop: { id: number }; deal: { price: { amount: number; amountInt: number; currency: string } } }>>(
+      `${ITAD}/games/history/v2?id=${encodeURIComponent(deal.id)}&country=CN&shops=${STEAM_SHOP_ID}&since=${encodeURIComponent(since)}`,
+      { headers: { "ITAD-API-Key": key } },
+    ),
+    json<{ query_summary?: { total_positive: number; total_reviews: number } }>(
+      `https://store.steampowered.com/appreviews/${appId}?json=1&language=all&purchase_type=all&num_per_page=0`,
+    ).catch(() => ({ query_summary: undefined })),
+  ]);
   const valid = history.filter((item) => item.shop.id === STEAM_SHOP_ID && item.deal.price.currency === "CNY");
   if (!valid.length) return null;
   const earliest = Math.min(...valid.map((item) => Date.parse(item.timestamp)));
@@ -105,7 +112,10 @@ async function enrich(deal: ItadDeal, products: string[], key: string): Promise<
   const lowStatus = currentMinor <= minimumMinor
     ? release > twoYearsAgo ? "RELEASE_LOW" : "TWO_YEAR_LOW"
     : "NEAR_LOW";
-  const reviews = app.data.recommendations?.total ?? null;
+  const reviewCount = reviewResponse.query_summary?.total_reviews ?? app.data.recommendations?.total ?? null;
+  const reviewPercent = reviewResponse.query_summary?.total_reviews
+    ? Math.round(reviewResponse.query_summary.total_positive * 100 / reviewResponse.query_summary.total_reviews)
+    : null;
 
   return {
     appId,
@@ -118,8 +128,8 @@ async function enrich(deal: ItadDeal, products: string[], key: string): Promise<
     discount: deal.deal.cut,
     lowStatus,
     expiry: deal.deal.expiry,
-    reviewPercent: null,
-    reviewCount: reviews,
+    reviewPercent,
+    reviewCount,
     genres: (app.data.genres ?? []).map((genre: { description: string }) => genre.description),
     observations: valid.length,
   };
