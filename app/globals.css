@@ -54,8 +54,10 @@ h1 em { color:var(--mint); font-style:normal; }
 .price-row del { color:#728598; font-size:12px; }
 .price-row>span { color:#d5a95c; font-size:11px; }
 .low-proof { padding:10px 0 15px; border-top:1px solid var(--line); display:flex; justify-content:space-between; color:var(--muted); font-size:10px; }
-.card-body>a { display:flex; justify-content:space-between; border-top:1px solid var(--line); padding-top:15px; color:#d9e6ef; font-size:12px; font-weight:700; }
-.card-body>a span { color:var(--mint); }
+.steam-button { min-height:46px; margin-top:2px; padding:0 15px; display:flex; align-items:center; justify-content:space-between; color:#08251b; background:linear-gradient(135deg,#72eebb,#52dca6); border:1px solid #8bf4cb; border-radius:8px; font-size:13px; font-weight:850; box-shadow:0 8px 24px #43d6a322; transition:transform .18s,box-shadow .18s,filter .18s; }
+.steam-button:hover { transform:translateY(-1px); filter:brightness(1.04); box-shadow:0 11px 28px #43d6a33b; }
+.steam-button:focus-visible { outline:3px solid #fff; outline-offset:3px; }
+.steam-button span { color:#0b4a36; font-size:17px; }
 .notice { padding:50px; text-align:center; color:var(--muted); border:1px dashed var(--line); border-radius:12px; }
 .loading-grid div { height:390px; border-radius:14px; background:linear-gradient(100deg,#10202e 25%,#183044 40%,#10202e 60%); background-size:300% 100%; animation:load 1.5s infinite; }
 @keyframes load { to { background-position:-150% 0; } }
