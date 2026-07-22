@@ -53,7 +53,17 @@ h1 em { color:var(--mint); font-style:normal; }
 .price-row strong { font-size:25px; display:block; }
 .price-row del { color:#728598; font-size:12px; }
 .price-row>span { color:#d5a95c; font-size:11px; }
-.low-proof { padding:10px 0 15px; border-top:1px solid var(--line); display:flex; justify-content:space-between; color:var(--muted); font-size:10px; }
+.low-proof { padding:10px 0; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:8px; color:var(--muted); font-size:10px; }
+.price-evidence { margin:0 0 13px; border-top:1px solid #28445a; border-bottom:1px solid #28445a; color:#9fb0bf; font-size:10px; }
+.price-evidence summary { min-height:34px; display:flex; align-items:center; justify-content:space-between; color:#bcd0df; cursor:pointer; list-style:none; font-weight:750; }
+.price-evidence summary::-webkit-details-marker { display:none; }
+.price-evidence summary span { color:var(--mint); font-size:15px; transition:transform .18s; }
+.price-evidence[open] summary span { transform:rotate(45deg); }
+.price-evidence dl { margin:0 0 9px; padding:10px; background:#102536; border-radius:6px; }
+.price-evidence dl div { display:flex; justify-content:space-between; padding:3px 0; }
+.price-evidence dt { color:#7f95a6; }
+.price-evidence dd { margin:0; color:#d4e0e8; }
+.price-evidence p { margin:0 0 11px; line-height:1.55; color:#758b9c; }
 .steam-button { min-height:46px; margin-top:2px; padding:0 15px; display:flex; align-items:center; justify-content:space-between; color:#08251b; background:linear-gradient(135deg,#72eebb,#52dca6); border:1px solid #8bf4cb; border-radius:8px; font-size:13px; font-weight:850; box-shadow:0 8px 24px #43d6a322; transition:transform .18s,box-shadow .18s,filter .18s; }
 .steam-button:hover { transform:translateY(-1px); filter:brightness(1.04); box-shadow:0 11px 28px #43d6a33b; }
 .steam-button:focus-visible { outline:3px solid #fff; outline-offset:3px; }
