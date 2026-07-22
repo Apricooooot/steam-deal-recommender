@@ -1,4 +1,3 @@
-
 type ItadDeal = {
   id: string;
   title: string;
@@ -26,6 +25,9 @@ type PublicDeal = {
   reviewCount: number | null;
   genres: string[];
   observations: number;
+  referenceLowAt: string;
+  historyWindowStart: string;
+  historyWindow: "TWO_YEARS" | "SINCE_RELEASE";
 };
 
 const ITAD = "https://api.isthereanydeal.com";
@@ -44,12 +46,12 @@ type DealPayload = {
 };
 
 const demoDeals: PublicDeal[] = [
-  { appId: 367520, title: "Hollow Knight", image: "https://cdn.akamai.steamstatic.com/steam/apps/367520/header.jpg", currentPrice: 29, regularPrice: 58, referenceLow: 29, currency: "CNY", discount: 50, lowStatus: "TWO_YEAR_LOW", expiry: "2026-07-25T17:00:00Z", reviewPercent: 97, reviewCount: 382451, genres: ["ç±»é“¶æ²³æˆ˜å£«æ¶é­”åŸŽ", "åŠ¨ä½œ"], observations: 18 },
-  { appId: 413150, title: "Stardew Valley", image: "https://cdn.akamai.steamstatic.com/steam/apps/413150/header.jpg", currentPrice: 28.8, regularPrice: 48, referenceLow: 24, currency: "CNY", discount: 40, lowStatus: "NEAR_LOW", expiry: "2026-07-26T17:00:00Z", reviewPercent: 98, reviewCount: 904217, genres: ["å†œåœºæ¨¡æ‹Ÿ", "ä¼‘é—²"], observations: 22 },
-  { appId: 1145360, title: "Hades", image: "https://cdn.akamai.steamstatic.com/steam/apps/1145360/header.jpg", currentPrice: 36, regularPrice: 92, referenceLow: 36, currency: "CNY", discount: 61, lowStatus: "TWO_YEAR_LOW", expiry: "2026-07-24T17:00:00Z", reviewPercent: 98, reviewCount: 276824, genres: ["åŠ¨ä½œç±» Rogue", "å‰§æƒ…"], observations: 15 },
-  { appId: 1623730, title: "Palworld", image: "https://cdn.akamai.steamstatic.com/steam/apps/1623730/header.jpg", currentPrice: 81, regularPrice: 108, referenceLow: 81, currency: "CNY", discount: 25, lowStatus: "RELEASE_LOW", expiry: "2026-07-28T17:00:00Z", reviewPercent: 93, reviewCount: 311260, genres: ["å¼€æ”¾ä¸–ç•Œ", "ç”Ÿå­˜"], observations: 9 },
-  { appId: 646570, title: "Slay the Spire", image: "https://cdn.akamai.steamstatic.com/steam/apps/646570/header.jpg", currentPrice: 21.6, regularPrice: 72, referenceLow: 21.6, currency: "CNY", discount: 70, lowStatus: "TWO_YEAR_LOW", expiry: null, reviewPercent: 97, reviewCount: 153804, genres: ["ç‰Œç»„æž„å»º", "Roguelike"], observations: 20 },
-  { appId: 892970, title: "Valheim", image: "https://cdn.akamai.steamstatic.com/steam/apps/892970/header.jpg", currentPrice: 35, regularPrice: 70, referenceLow: 35, currency: "CNY", discount: 50, lowStatus: "TWO_YEAR_LOW", expiry: "2026-07-27T17:00:00Z", reviewPercent: 94, reviewCount: 432118, genres: ["ç”Ÿå­˜", "å¤šäººåˆä½œ"], observations: 17 },
+  { appId: 367520, title: "Hollow Knight", image: "https://cdn.akamai.steamstatic.com/steam/apps/367520/header.jpg", currentPrice: 29, regularPrice: 58, referenceLow: 29, currency: "CNY", discount: 50, lowStatus: "TWO_YEAR_LOW", expiry: "2026-07-25T17:00:00Z", reviewPercent: 97, reviewCount: 382451, genres: ["类银河战士恶魔城", "动作"], observations: 18, referenceLowAt: "2026-06-26T17:00:00Z", historyWindowStart: "2024-07-21T00:00:00Z", historyWindow: "TWO_YEARS" },
+  { appId: 413150, title: "Stardew Valley", image: "https://cdn.akamai.steamstatic.com/steam/apps/413150/header.jpg", currentPrice: 28.8, regularPrice: 48, referenceLow: 24, currency: "CNY", discount: 40, lowStatus: "NEAR_LOW", expiry: "2026-07-26T17:00:00Z", reviewPercent: 98, reviewCount: 904217, genres: ["农场模拟", "休闲"], observations: 22, referenceLowAt: "2025-12-19T17:00:00Z", historyWindowStart: "2024-07-21T00:00:00Z", historyWindow: "TWO_YEARS" },
+  { appId: 1145360, title: "Hades", image: "https://cdn.akamai.steamstatic.com/steam/apps/1145360/header.jpg", currentPrice: 36, regularPrice: 92, referenceLow: 36, currency: "CNY", discount: 61, lowStatus: "TWO_YEAR_LOW", expiry: "2026-07-24T17:00:00Z", reviewPercent: 98, reviewCount: 276824, genres: ["动作类 Rogue", "剧情"], observations: 15, referenceLowAt: "2026-06-26T17:00:00Z", historyWindowStart: "2024-07-21T00:00:00Z", historyWindow: "TWO_YEARS" },
+  { appId: 1623730, title: "Palworld", image: "https://cdn.akamai.steamstatic.com/steam/apps/1623730/header.jpg", currentPrice: 81, regularPrice: 108, referenceLow: 81, currency: "CNY", discount: 25, lowStatus: "RELEASE_LOW", expiry: "2026-07-28T17:00:00Z", reviewPercent: 93, reviewCount: 311260, genres: ["开放世界", "生存"], observations: 9, referenceLowAt: "2026-07-10T17:00:00Z", historyWindowStart: "2024-01-19T00:00:00Z", historyWindow: "SINCE_RELEASE" },
+  { appId: 646570, title: "Slay the Spire", image: "https://cdn.akamai.steamstatic.com/steam/apps/646570/header.jpg", currentPrice: 21.6, regularPrice: 72, referenceLow: 21.6, currency: "CNY", discount: 70, lowStatus: "TWO_YEAR_LOW", expiry: null, reviewPercent: 97, reviewCount: 153804, genres: ["牌组构建", "Roguelike"], observations: 20, referenceLowAt: "2026-06-26T17:00:00Z", historyWindowStart: "2024-07-21T00:00:00Z", historyWindow: "TWO_YEARS" },
+  { appId: 892970, title: "Valheim", image: "https://cdn.akamai.steamstatic.com/steam/apps/892970/header.jpg", currentPrice: 35, regularPrice: 70, referenceLow: 35, currency: "CNY", discount: 50, lowStatus: "TWO_YEAR_LOW", expiry: "2026-07-27T17:00:00Z", reviewPercent: 94, reviewCount: 432118, genres: ["生存", "多人合作"], observations: 17, referenceLowAt: "2026-06-26T17:00:00Z", historyWindowStart: "2024-07-21T00:00:00Z", historyWindow: "TWO_YEARS" },
 ];
 
 async function json<T>(url: string, init?: RequestInit): Promise<T> {
@@ -106,6 +108,9 @@ async function enrich(deal: ItadDeal, products: string[], key: string): Promise<
   const earliest = Math.min(...valid.map((item) => Date.parse(item.timestamp)));
   if (earliest > windowStart + 7 * 86_400_000) return null;
   const minimumMinor = Math.min(...valid.map((item) => item.deal.price.amountInt));
+  const referenceLowAt = valid
+    .filter((item) => item.deal.price.amountInt === minimumMinor)
+    .sort((a, b) => Date.parse(b.timestamp) - Date.parse(a.timestamp))[0].timestamp;
   const currentMinor = deal.deal.price.amountInt;
   if (currentMinor > Math.ceil(minimumMinor * 1.05)) return null;
 
@@ -132,6 +137,9 @@ async function enrich(deal: ItadDeal, products: string[], key: string): Promise<
     reviewCount,
     genres: (app.data.genres ?? []).map((genre: { description: string }) => genre.description),
     observations: valid.length,
+    referenceLowAt,
+    historyWindowStart: new Date(windowStart).toISOString(),
+    historyWindow: release > twoYearsAgo ? "SINCE_RELEASE" : "TWO_YEARS",
   };
 }
 
