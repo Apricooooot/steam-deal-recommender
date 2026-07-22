@@ -19,6 +19,9 @@ type Deal = {
   reviewCount: number | null;
   genres: string[];
   observations: number;
+  referenceLowAt: string;
+  historyWindowStart: string;
+  historyWindow: "TWO_YEARS" | "SINCE_RELEASE";
 };
 
 type DealResponse = {
@@ -48,6 +51,10 @@ function remaining(expiry: string | null) {
   if (hours <= 0) return "已结束";
   if (hours < 24) return `还剩 ${hours} 小时`;
   return `还剩 ${Math.ceil(hours / 24)} 天`;
+}
+
+function shortDate(value: string) {
+  return new Intl.DateTimeFormat("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(value));
 }
 
 export function DealExplorer() {
@@ -156,8 +163,17 @@ export function DealExplorer() {
                 </div>
                 <div className="low-proof">
                   <span>参考低价 {money.format(deal.referenceLow)}</span>
-                  <span>{deal.observations} 条价格记录</span>
+                  <span>最近记录于 {shortDate(deal.referenceLowAt)}</span>
                 </div>
+                <details className="price-evidence">
+                  <summary>查看价格依据 <span>＋</span></summary>
+                  <dl>
+                    <div><dt>比较区间</dt><dd>{deal.historyWindow === "TWO_YEARS" ? "近两年" : "发售以来"}</dd></div>
+                    <div><dt>区间开始</dt><dd>{shortDate(deal.historyWindowStart)}</dd></div>
+                    <div><dt>变价记录</dt><dd>{deal.observations} 条</dd></div>
+                  </dl>
+                  <p>日期表示数据源最近一次记录到该低价的时间；价格历史是变动日志，并非每日快照。</p>
+                </details>
                 <a
                   className="steam-button"
                   href={`https://store.steampowered.com/app/${deal.appId}/?cc=cn`}
